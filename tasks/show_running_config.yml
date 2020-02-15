@@ -1,0 +1,11 @@
+- hosts: '{{ target }}'
+  gather_facts: no
+  connection: local
+  tasks:
+  - name: Backup switch (ios)
+    cli_command:
+      command: show run
+    register: command_stdout
+  - name: print at the screen 
+    debug:
+      msg: "{{ command_stdout }}"

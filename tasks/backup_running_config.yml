@@ -1,0 +1,18 @@
+- hosts: '{{ target }}'
+  gather_facts: no
+  connection: local
+  tasks:
+  - name: Backup current switch config (ios)
+    ios_config:
+      backup: yes
+      backup_options:
+        filename: '{{ inventory_hostname }}.ios'
+        dir_path: /tmp/{{ inventory_hostname }}/
+    when: ansible_network_os == 'ios'
+  - name: Backup current switch config (ios)
+    nxos_config:
+      backup: yes
+      backup_options:
+        filename: '{{ inventory_hostname }}.nxos'
+        dir_path: /tmp/{{ inventory_hostname }}/
+    when: ansible_network_os == 'nxos'
