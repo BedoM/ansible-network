@@ -9,6 +9,7 @@
         filename: '{{ inventory_hostname }}.ios'
         dir_path: /tmp/{{ inventory_hostname }}/
     when: ansible_network_os == 'ios'
+  
   - name: Backup current switch config (ios)
     nxos_config:
       backup: yes
