@@ -2,9 +2,9 @@
   gather_facts: no
   connection: local
   tasks:
-  - name: Backup switch (ios)
+  - name: Send command {{ target_command  }}
     cli_command:
-      command: show run
+      command: '{{ target_command  }}'
     register: command_stdout
   - name: print at the screen 
     debug:
