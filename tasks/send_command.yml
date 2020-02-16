@@ -2,10 +2,24 @@
   gather_facts: no
   connection: local
   tasks:
-  - name: Send command {{ target_command  }}
-    cli_command:
-      command: '{{ target_command  }}'
+  - name: Send command {{ target_command }}
+    ios_command:
+      commands: '{{ target_command  }}'
     register: command_stdout
-  - name: print at the screen 
+    when: ansible_network_os == 'ios'
+
+  - name: Print {{ target_command }}
     debug:
       msg: "{{ command_stdout }}"
+    when: command_stdout != ""
+
+  - name: Send command {{ target_command }}
+    nxos_command:
+      commands: '{{ target_command  }}'
+    register: command_stdout
+    when: ansible_network_os == 'nxos'
+
+  - name: Print {{ target_command }} 
+    debug:
+      msg: "{{ command_stdout }}"
+    when: command_stdout != ""
